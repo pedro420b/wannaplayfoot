@@ -48,7 +48,8 @@ class LoginScreen extends StatelessWidget {
       onSignup: _signupUser,
       onSubmitAnimationCompleted: () {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const HomeScreen(),  // Ensure you have a HomeScreen to navigate to
+          builder: (context) =>
+              const HomeScreen(), // Ensure you have a HomeScreen to navigate to
         ));
       },
       onRecoverPassword: _recoverPassword,
@@ -63,14 +64,16 @@ class LoginScreen extends StatelessWidget {
         goBackButton: 'BACK',
         confirmPasswordError: 'Not match!',
         recoverPasswordIntro: 'Don\'t feel bad. Happens all the time.',
-        recoverPasswordDescription: 'We will send you instructions on how to reset your password.',
+        recoverPasswordDescription:
+            'We will send you instructions on how to reset your password.',
         recoverPasswordSuccess: 'Password rescued successfully',
       ),
       theme: LoginTheme(
         primaryColor: Colors.blueAccent,
         accentColor: Colors.orange,
         errorColor: Colors.red,
-      ),additionalSignupFields: const [
+      ),
+      additionalSignupFields: const [
         UserFormField(
           keyName: 'name',
           icon: Icon(Icons.person),
@@ -84,7 +87,7 @@ class LoginScreen extends StatelessWidget {
           label: 'Google',
           callback: () async {
             return null;
-          
+
             // Handle Google login
           },
         ),
@@ -93,7 +96,7 @@ class LoginScreen extends StatelessWidget {
           label: 'Facebook',
           callback: () async {
             return null;
-          
+
             // Handle Facebook login
           },
         ),
@@ -102,7 +105,7 @@ class LoginScreen extends StatelessWidget {
           label: 'Instagram',
           callback: () async {
             return null;
-          
+
             // Handle Instagram login
           },
         ),
@@ -111,7 +114,7 @@ class LoginScreen extends StatelessWidget {
           label: 'TikTok',
           callback: () async {
             return null;
-          
+
             // Handle TikTok login
           },
         ),
