@@ -3,8 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'home_screen.dart';
-import 'package:flutter_login/flutter_login.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
