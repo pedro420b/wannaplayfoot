@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "528172337044",
+    "project_id": "testapp-ec94c",
+    "storage_bucket": "testapp-ec94c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:528172337044:android:662c49bc81b70c992e7181",
+        "android_client_info": {
+          "package_name": "com.xhunter.wannaplayfoot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "528172337044-itdo6e3roa0duf5cumk83t783ut5r95u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY0KI0_fWK6cBo-xghG4h_3zcBUMjg0m4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "528172337044-itdo6e3roa0duf5cumk83t783ut5r95u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
