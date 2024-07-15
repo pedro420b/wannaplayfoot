@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously, unused_local_variable, unused_element, deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -9,27 +12,29 @@ class LoginScreen extends StatelessWidget {
     final bool isSmallScreen = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
-        body: Center(
-            child: isSmallScreen
-                ? const Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _Logo(),
-                      _FormContent(),
-                    ],
-                  )
-                : Container(
-                    padding: const EdgeInsets.all(32.0),
-                    constraints: const BoxConstraints(maxWidth: 800),
-                    child: const Row(
-                      children: [
-                        Expanded(child: _Logo()),
-                        Expanded(
-                          child: Center(child: _FormContent()),
-                        ),
-                      ],
+      body: Center(
+        child: isSmallScreen
+            ? const Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _Logo(),
+                  _FormContent(),
+                ],
+              )
+            : Container(
+                padding: const EdgeInsets.all(32.0),
+                constraints: const BoxConstraints(maxWidth: 800),
+                child: const Row(
+                  children: [
+                    Expanded(child: _Logo()),
+                    Expanded(
+                      child: Center(child: _FormContent()),
                     ),
-                  )));
+                  ],
+                ),
+              ),
+      ),
+    );
   }
 }
 
@@ -47,16 +52,13 @@ class _Logo extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            "Welcome to Flutter!",
+            "welkkommen!",
             textAlign: TextAlign.center,
             style: isSmallScreen
                 ? Theme.of(context).textTheme.headline5
-                : Theme.of(context)
-                    .textTheme
-                    .headline4
-                    ?.copyWith(color: Colors.black),
+                : Theme.of(context).textTheme.headline4?.copyWith(color: Colors.black),
           ),
-        )
+        ),
       ],
     );
   }
@@ -82,6 +84,32 @@ class __FormContentState extends State<_FormContent> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> _signIn(BuildContext context) async {
+    final String email = _emailController.text.trim();
+    final String password = _passwordController.text.trim();
+
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+    } on FirebaseAuthException catch (e) {
+      String message = 'An error occurred, please try again.';
+      if (e.code == 'user-not-found') {
+        message = 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        message = 'Wrong password provided.';
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    }
   }
 
   @override
@@ -115,7 +143,7 @@ class __FormContentState extends State<_FormContent> {
                 border: OutlineInputBorder(),
               ),
             ),
-            _gap(),
+            const SizedBox(height: 16),
             TextFormField(
               controller: _passwordController,
               validator: (value) {
@@ -129,22 +157,21 @@ class __FormContentState extends State<_FormContent> {
               },
               obscureText: !_isPasswordVisible,
               decoration: InputDecoration(
-                  labelText: 'Password',
-                  hintText: 'Enter your password',
-                  prefixIcon: const Icon(Icons.lock_outline_rounded),
-                  border: const OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    icon: Icon(_isPasswordVisible
-                        ? Icons.visibility_off
-                        : Icons.visibility),
-                    onPressed: () {
-                      setState(() {
-                        _isPasswordVisible = !_isPasswordVisible;
-                      });
-                    },
-                  )),
+                labelText: 'Password',
+                hintText: 'Enter your password',
+                prefixIcon: const Icon(Icons.lock_outline_rounded),
+                border: const OutlineInputBorder(),
+                suffixIcon: IconButton(
+                  icon: Icon(_isPasswordVisible ? Icons.visibility_off : Icons.visibility),
+                  onPressed: () {
+                    setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
+                ),
+              ),
             ),
-            _gap(),
+            const SizedBox(height: 16),
             CheckboxListTile(
               value: _rememberMe,
               onChanged: (value) {
@@ -158,13 +185,12 @@ class __FormContentState extends State<_FormContent> {
               dense: true,
               contentPadding: const EdgeInsets.all(0),
             ),
-            _gap(),
+            const SizedBox(height: 16),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
                 ),
                 child: const Padding(
                   padding: EdgeInsets.all(10.0),
@@ -175,12 +201,7 @@ class __FormContentState extends State<_FormContent> {
                 ),
                 onPressed: () {
                   if (_formKey.currentState?.validate() ?? false) {
-                    // Perform your authentication logic here
-                    // After successful login, navigate to the HomeScreen
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomeScreen()),
-                    );
+                    _signIn(context);
                   }
                 },
               ),
@@ -190,6 +211,4 @@ class __FormContentState extends State<_FormContent> {
       ),
     );
   }
-
-  Widget _gap() => const SizedBox(height: 16);
 }
