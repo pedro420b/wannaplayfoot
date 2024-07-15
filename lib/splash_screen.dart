@@ -28,7 +28,7 @@ class SplashScreenState extends State<SplashScreen> with TickerProviderStateMixi
   }
 
   Future<void> _navigateToHome() async {
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 7));
     if (!mounted) return;
     Navigator.pushReplacement(
       context,

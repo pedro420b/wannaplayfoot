@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: const Center(
         child: Text(
-          'Welcome to the Home Screen!',
+          'Erfolgreich logget in!',
           style: TextStyle(fontSize: 24),
         ),
       ),

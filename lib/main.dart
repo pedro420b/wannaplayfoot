@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wannaplayfoot/login_screen.dart';
+import 'package:wannaplayfoot/splash_screen.dart';
 //import 'splash_screen.dart';
 
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const GoogleSignInScreen(),
+      home: const LoginScreen(),
     );
   }
 }
